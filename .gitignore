@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Environment
+backend/.env
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

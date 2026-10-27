@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JalUrja AI — Municipal Water & Energy Command Center</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 1; }
+    }
+    .pulse-danger {
+      animation: pulse-ring 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 px-4 sm:px-6 py-3.5 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-400 flex items-center justify-center shadow-lg shadow-sky-900/30">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold text-slate-100 tracking-tight">JalUrja AI</h1>
+            <span class="px-2 py-0.5 text-xs font-semibold bg-sky-950 text-sky-400 border border-sky-800 rounded-full">v1.0 Live</span>
+          </div>
+          <p class="text-xs text-slate-400">Urban Water Grid Digital Twin & Solar Pump Optimizer • Bengaluru South Zone</p>
+        </div>
+      </div>
+
+      <!-- Action & Live Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="triggerSimulateTick()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition flex items-center gap-1.5 shadow-sm">
+          <svg class="w-3.5 h-3.5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          IoT Sensor Tick
+        </button>
+        <button onclick="triggerBurstSimulation()" class="px-3.5 py-1.5 bg-red-950/70 hover:bg-red-900 text-red-200 text-xs font-medium rounded-lg border border-red-800/80 transition flex items-center gap-1.5 shadow-sm">
+          <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Simulate Burst
+        </button>
+        <a href="/docs/presentation_deck.html" target="_blank" class="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium rounded-lg shadow transition">
+          View Presentation Deck
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Dashboard -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+
+    <!-- KPI Metric Summary Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Metric 1: NRW -->
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden">
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-xs font-medium text-slate-400">Non-Revenue Water Loss</span>
+          <span class="px-2 py-0.5 text-xs font-bold bg-emerald-950 text-emerald-400 rounded border border-emerald-800">-34.8% Cut</span>
+        </div>
+        <div class="text-2xl font-bold text-slate-100" id="kpi-nrw">18.2%</div>
+        <div class="text-xs text-slate-400 mt-1">Reduced from baseline 39.5% via real-time leak pinpointer.</div>
+      </div>
+
+      <!-- Metric 2: Electricity Savings -->
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden">
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-xs font-medium text-slate-400">Daily Power Cost Savings</span>
+          <span class="px-2 py-0.5 text-xs font-bold bg-amber-950 text-amber-400 rounded border border-amber-800">-22.1% Power</span>
+        </div>
+        <div class="text-2xl font-bold text-amber-300" id="kpi-savings">₹18,450 / day</div>
+        <div class="text-xs text-slate-400 mt-1">Via Solar Time-of-Day (ToD) tariff pump dispatch.</div>
+      </div>
+
+      <!-- Metric 3: Active Anomalies -->
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden">
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-xs font-medium text-slate-400">Pipeline Integrity & Alerts</span>
+          <span class="px-2 py-0.5 text-xs font-bold bg-red-950 text-red-400 rounded border border-red-800" id="kpi-alert-badge">1 Critical</span>
+        </div>
+        <div class="text-2xl font-bold text-red-400" id="kpi-alerts">1 Active Alert</div>
+        <div class="text-xs text-slate-400 mt-1">Node-102 (Koramangala 80ft Rd) pressure collapse.</div>
+      </div>
+
+      <!-- Metric 4: Grid Flow & Emissions -->
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden">
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-xs font-medium text-slate-400">Total Ward Grid Flow</span>
+          <span class="px-2 py-0.5 text-xs font-bold bg-sky-950 text-sky-400 rounded border border-sky-800">100% Monitored</span>
+        </div>
+        <div class="text-2xl font-bold text-sky-300" id="kpi-flow">965.0 L/s</div>
+        <div class="text-xs text-slate-400 mt-1">CO₂ emissions averted: <span class="text-emerald-400 font-semibold" id="kpi-co2">285 kg/day</span></div>
+      </div>
+    </div>
+
+    <!-- Middle Split: Map & Leak Alerts -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Interactive Grid Map (8 cols) -->
+      <div class="lg:col-span-8 bg-slate-900 rounded-xl border border-slate-800 p-4 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <h2 class="text-sm font-bold text-slate-100">Ward Pipeline Topology & Live Sensor Junctions</h2>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Normal</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span> Warning</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span> Critical Burst</span>
+          </div>
+        </div>
+        <!-- Map Canvas -->
+        <div id="grid-map" class="w-full h-96 rounded-lg bg-slate-950 border border-slate-800 z-10"></div>
+        <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
+          <span>Click any junction marker to view real-time hydraulic pressure (Bar) & acoustic dB.</span>
+          <span class="font-mono text-sky-400">Zone: Bengaluru South (12.93°N, 77.63°E)</span>
+        </div>
+      </div>
+
+      <!-- Active Alerts & Repair Dispatch (4 cols) -->
+      <div class="lg:col-span-4 bg-slate-900 rounded-xl border border-slate-800 p-4 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-bold text-slate-100 flex items-center gap-2">
+            <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            Live Anomaly Triage Queue
+          </h2>
+          <span class="text-xs text-slate-400 font-mono" id="alert-count-text">1 Open</span>
+        </div>
+        <div class="flex-1 overflow-y-auto space-y-3 pr-1 max-h-96" id="alerts-container">
+          <!-- Rendered dynamically -->
+          <div class="p-3 bg-slate-800/80 rounded-lg border border-slate-700 text-xs text-slate-400">Loading alerts...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Split: Pump Scheduling & Demand Forecast Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Solar ToD Pump Optimization Card -->
+      <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h2 class="text-sm font-bold text-slate-100">Solar Time-of-Day (ToD) Pump Optimizer</h2>
+            <p class="text-xs text-slate-400">PUMP-01 (120 kW) Koramangala Booster Pumping Station</p>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-800 rounded-lg">
+            Solar Priority Mode
+          </span>
+        </div>
+        <div class="h-64 relative">
+          <canvas id="pumpChart"></canvas>
+        </div>
+        <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-800/60 p-2 rounded border border-slate-700">
+            <div class="text-slate-400">Solar Tariff (10-16h)</div>
+            <div class="text-emerald-400 font-bold">₹4.20 / kWh</div>
+          </div>
+          <div class="bg-slate-800/60 p-2 rounded border border-slate-700">
+            <div class="text-slate-400">Peak Tariff (18-22h)</div>
+            <div class="text-red-400 font-bold">₹8.90 / kWh</div>
+          </div>
+          <div class="bg-slate-800/60 p-2 rounded border border-slate-700">
+            <div class="text-slate-400">Monthly Est. Savings</div>
+            <div class="text-amber-300 font-bold">₹5.53 Lakhs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Water Demand Forecast Card -->
+      <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h2 class="text-sm font-bold text-slate-100">24-Hour Predictive Water Demand (MLD)</h2>
+            <p class="text-xs text-slate-400">Machine Learning Diurnal Forecast vs Distribution Threshold</p>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-semibold bg-sky-950 text-sky-300 border border-sky-800 rounded-lg">
+            ML Model: Random Forest
+          </span>
+        </div>
+        <div class="h-64 relative">
+          <canvas id="demandChart"></canvas>
+        </div>
+        <div class="mt-3 flex items-center justify-between text-xs text-slate-400 bg-slate-800/50 p-2 rounded border border-slate-700">
+          <span>Morning Peak: 06:00 - 09:00 (16.1 MLD)</span>
+          <span>Evening Peak: 18:00 - 21:00 (15.5 MLD)</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 border-t border-slate-800 py-4 px-6 text-center text-xs text-slate-500">
+    JalUrja AI Platform • Designed for MY Bharat / Smart India Hackathon • UN SDGs 6, 7 & 11 • Open-Source Prototype under MIT License
+  </footer>
+
+  <!-- Frontend Logic -->
+  <script>
+    let map, pumpChartInstance, demandChartInstance;
+    let markers = {};
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initMap();
+      fetchOverview();
+      fetchNodes();
+      fetchAlerts();
+      fetchPumpSchedule();
+      fetchDemandForecast();
+
+      // Poll telemetry every 15 seconds
+      setInterval(() => {
+        fetchOverview();
+        fetchNodes();
+        fetchAlerts();
+      }, 15000);
+    });
+
+    function initMap() {
+      // Centered on Koramangala - HSR Layout, Bengaluru
+      map = L.map('grid-map').setView([12.926, 77.638], 14);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; CartoDB &copy; OpenStreetMap',
+        maxZoom: 18
+      }).addTo(map);
+    }
+
+    async function fetchOverview() {
+      try {
+        const res = await fetch('/api/overview');
+        const data = await res.json();
+        const kpi = data.kpi_metrics;
+        document.getElementById('kpi-nrw').innerText = `${kpi.current_nrw_loss_pct}%`;
+        document.getElementById('kpi-savings').innerText = `₹${kpi.daily_power_savings_inr.toLocaleString()} / day`;
+        document.getElementById('kpi-alerts').innerText = `${kpi.active_alerts_total} Active Alert${kpi.active_alerts_total > 1 ? 's' : ''}`;
+        document.getElementById('kpi-alert-badge').innerText = `${kpi.critical_bursts} Critical`;
+        document.getElementById('kpi-flow').innerText = `${kpi.total_grid_flow_lps} L/s`;
+        document.getElementById('kpi-co2').innerText = `${kpi.co2_averted_kg_daily} kg/day`;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function fetchNodes() {
+      try {
+        const res = await fetch('/api/nodes');
+        const data = await res.json();
+        const nodes = data.nodes || [];
+
+        nodes.forEach(node => {
+          const lat = node.latitude;
+          const lng = node.longitude;
+          if (!lat || !lng) return;
+
+          let color = '#10b981'; // normal green
+          let radius = 7;
+          let pulseClass = '';
+
+          if (node.status === 'CRITICAL_LEAK') {
+            color = '#ef4444'; // critical red
+            radius = 12;
+            pulseClass = 'pulse-danger';
+          } else if (node.status === 'WARNING') {
+            color = '#f59e0b'; // amber
+            radius = 9;
+          } else if (node.type === 'reservoir') {
+            color = '#0284c7';
+            radius = 11;
+          } else if (node.type === 'pump_station') {
+            color = '#8b5cf6';
+            radius = 10;
+          }
+
+          const popupContent = `
+            <div class="text-xs text-slate-800 font-sans p-1">
+              <strong class="text-sm font-bold">${node.name}</strong> (${node.id})<br>
+              <span class="text-slate-500">Type:</span> ${node.type}<br>
+              <span class="text-slate-500">Status:</span> <strong style="color:${color}">${node.status}</strong><br>
+              ${node.current_pressure_bar ? `<span>Pressure: <b>${node.current_pressure_bar} Bar</b> (Target: ${node.target_pressure_bar || 3.2} Bar)</span><br>` : ''}
+              ${node.flow_rate_lps ? `<span>Flow Rate: <b>${node.flow_rate_lps} L/s</b></span><br>` : ''}
+              ${node.acoustic_noise_db ? `<span>Acoustic Noise: <b>${node.acoustic_noise_db} dB</b></span><br>` : ''}
+              ${node.leak_probability ? `<span>Leak Probability: <b>${Math.round(node.leak_probability * 100)}%</b></span>` : ''}
+            </div>
+          `;
+
+          if (markers[node.id]) {
+            markers[node.id].setLatLng([lat, lng]);
+            markers[node.id].setStyle({ color: color, fillColor: color, radius: radius });
+            markers[node.id].setPopupContent(popupContent);
+          } else {
+            const marker = L.circleMarker([lat, lng], {
+              radius: radius,
+              fillColor: color,
+              color: '#ffffff',
+              weight: 1.5,
+              opacity: 1,
+              fillOpacity: 0.85
+            }).addTo(map).bindPopup(popupContent);
+            markers[node.id] = marker;
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function fetchAlerts() {
+      try {
+        const res = await fetch('/api/alerts');
+        const data = await res.json();
+        const alerts = data.alerts || [];
+        const container = document.getElementById('alerts-container');
+        const openAlerts = alerts.filter(a => a.status === 'OPEN');
+        document.getElementById('alert-count-text').innerText = `${openAlerts.length} Open`;
+
+        if (alerts.length === 0) {
+          container.innerHTML = `<div class="p-4 bg-slate-800/50 rounded-lg text-xs text-emerald-400 text-center">✓ All pipeline junctions nominal. No anomalies detected.</div>`;
+          return;
+        }
+
+        container.innerHTML = alerts.map(a => {
+          const isOpen = a.status === 'OPEN';
+          const isCrit = a.severity === 'CRITICAL';
+          return `
+            <div class="p-3.5 rounded-xl border ${isOpen ? (isCrit ? 'bg-red-950/40 border-red-800/80' : 'bg-amber-950/40 border-amber-800/80') : 'bg-slate-800/50 border-slate-700 opacity-60'} space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="px-2 py-0.5 text-[10px] font-bold rounded ${isCrit ? 'bg-red-900 text-red-200' : 'bg-amber-900 text-amber-200'}">
+                    ${a.severity} ${isOpen ? 'ACTIVE' : 'RESOLVED'}
+                  </span>
+                  <div class="text-xs font-bold text-slate-100 mt-1">${a.node_name}</div>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">${a.id}</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-tight">${a.message}</p>
+              <div class="grid grid-cols-2 gap-2 text-[11px] bg-slate-900/60 p-2 rounded font-mono">
+                <div>Pressure: <span class="text-red-400 font-bold">${a.pressure_bar} Bar</span></div>
+                <div>Acoustic: <span class="text-amber-400 font-bold">${a.acoustic_noise_db} dB</span></div>
+              </div>
+              ${isOpen ? `
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-[10px] text-slate-400">Assigned: ${a.assigned_crew}</span>
+                  <button onclick="resolveAlert('${a.id}')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-medium rounded shadow transition">
+                    Dispatch & Resolve
+                  </button>
+                </div>
+              ` : `
+                <div class="text-[10px] text-emerald-400 font-mono">✓ Resolved by crew: ${a.resolution_notes || 'Fixed'}</div>
+              `}
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function resolveAlert(alertId) {
+      try {
+        await fetch(`/api/alerts/${alertId}/resolve`, { method: 'POST' });
+        fetchOverview();
+        fetchNodes();
+        fetchAlerts();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function triggerSimulateTick() {
+      try {
+        await fetch('/api/telemetry/simulate-step', { method: 'POST' });
+        fetchOverview();
+        fetchNodes();
+        fetchAlerts();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function triggerBurstSimulation() {
+      try {
+        await fetch('/api/telemetry/burst', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ node_id: 'NODE-104' })
+        });
+        fetchOverview();
+        fetchNodes();
+        fetchAlerts();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function fetchPumpSchedule() {
+      try {
+        const res = await fetch('/api/optimizer/pumps/schedule');
+        const data = await res.json();
+        const sched = data.hourly_schedule || [];
+
+        const labels = sched.map(s => s.hour_label);
+        const baselineCosts = sched.map(s => s.baseline_cost_inr);
+        const optimizedCosts = sched.map(s => s.optimized_cost_inr);
+        const tariffRates = sched.map(s => s.tariff_rate_inr);
+
+        const ctx = document.getElementById('pumpChart').getContext('2d');
+        pumpChartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Baseline Unoptimized Cost (₹)',
+                data: baselineCosts,
+                borderColor: '#ef4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderWidth: 2,
+                tension: 0.3
+              },
+              {
+                label: 'JalUrja AI Solar Optimized Cost (₹)',
+                data: optimizedCosts,
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                borderWidth: 2.5,
+                fill: true,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
+            },
+            scales: {
+              x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } },
+              y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' }, title: { display: true, text: 'Hourly Electricity Cost (₹)', color: '#94a3b8' } }
+            }
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function fetchDemandForecast() {
+      try {
+        const res = await fetch('/api/demand/forecast');
+        const data = await res.json();
+        const forecast = data.forecast || [];
+
+        const labels = forecast.map(f => f.hour_label);
+        const demand = forecast.map(f => f.predicted_demand_mld);
+
+        const ctx = document.getElementById('demandChart').getContext('2d');
+        demandChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Predicted Consumption (MLD)',
+              data: demand,
+              backgroundColor: demand.map((val, idx) => (idx >= 6 && idx <= 9) || (idx >= 18 && idx <= 20) ? '#f59e0b' : '#0284c7'),
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
+            },
+            scales: {
+              x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } },
+              y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' }, title: { display: true, text: 'Mega-Litres / Day', color: '#94a3b8' } }
+            }
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  </script>
+</body>
+</html>

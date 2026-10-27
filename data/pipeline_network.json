@@ -1,0 +1,123 @@
+{
+  "grid_metadata": {
+    "city": "Bengaluru",
+    "district": "South Zone - Koramangala & HSR Ward",
+    "total_wards": 6,
+    "pumping_stations": 3,
+    "monitoring_nodes": 8,
+    "network_length_km": 42.5,
+    "updated_at": "2026-10-27T10:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "RES-01",
+      "name": "Central Master Balancing Reservoir (MBR)",
+      "type": "reservoir",
+      "capacity_ml": 25.0,
+      "current_level_pct": 78.5,
+      "latitude": 12.9352,
+      "longitude": 77.6245,
+      "elevation_m": 920
+    },
+    {
+      "id": "PUMP-01",
+      "name": "Koramangala Sector 4 Booster Pump",
+      "type": "pump_station",
+      "rated_power_kw": 120,
+      "efficiency_pct": 86.4,
+      "status": "RUNNING",
+      "flow_capacity_lps": 350,
+      "current_flow_lps": 312.4,
+      "energy_tariff_mode": "SOLAR_OFFPEAK",
+      "latitude": 12.9311,
+      "longitude": 77.6298
+    },
+    {
+      "id": "PUMP-02",
+      "name": "HSR Ring Road Pumping Station",
+      "type": "pump_station",
+      "rated_power_kw": 95,
+      "efficiency_pct": 82.1,
+      "status": "STANDBY",
+      "flow_capacity_lps": 280,
+      "current_flow_lps": 0.0,
+      "energy_tariff_mode": "PEAK_GRID",
+      "latitude": 12.9121,
+      "longitude": 77.6445
+    },
+    {
+      "id": "NODE-101",
+      "name": "Ward 151 Distribution Node A",
+      "type": "sensor_junction",
+      "target_pressure_bar": 3.2,
+      "current_pressure_bar": 3.15,
+      "flow_rate_lps": 115.8,
+      "acoustic_noise_db": 18.2,
+      "leak_probability": 0.04,
+      "status": "NORMAL",
+      "latitude": 12.9340,
+      "longitude": 77.6320
+    },
+    {
+      "id": "NODE-102",
+      "name": "Koramangala 80ft Road Junction B",
+      "type": "sensor_junction",
+      "target_pressure_bar": 3.5,
+      "current_pressure_bar": 1.72,
+      "flow_rate_lps": 182.4,
+      "acoustic_noise_db": 68.7,
+      "leak_probability": 0.93,
+      "status": "CRITICAL_LEAK",
+      "latitude": 12.9280,
+      "longitude": 77.6350
+    },
+    {
+      "id": "NODE-103",
+      "name": "HSR Sector 1 Feeder Point C",
+      "type": "sensor_junction",
+      "target_pressure_bar": 2.8,
+      "current_pressure_bar": 2.74,
+      "flow_rate_lps": 94.2,
+      "acoustic_noise_db": 22.1,
+      "leak_probability": 0.08,
+      "status": "NORMAL",
+      "latitude": 12.9180,
+      "longitude": 77.6410
+    },
+    {
+      "id": "NODE-104",
+      "name": "HSR Sector 3 Commercial Hub D",
+      "type": "sensor_junction",
+      "target_pressure_bar": 3.0,
+      "current_pressure_bar": 2.45,
+      "flow_rate_lps": 140.1,
+      "acoustic_noise_db": 44.5,
+      "leak_probability": 0.52,
+      "status": "WARNING",
+      "latitude": 12.9100,
+      "longitude": 77.6520
+    },
+    {
+      "id": "NODE-105",
+      "name": "Agara Lake Peripheral Main Line E",
+      "type": "sensor_junction",
+      "target_pressure_bar": 3.8,
+      "current_pressure_bar": 3.75,
+      "flow_rate_lps": 220.5,
+      "acoustic_noise_db": 15.6,
+      "leak_probability": 0.02,
+      "status": "NORMAL",
+      "latitude": 12.9215,
+      "longitude": 77.6330
+    }
+  ],
+  "pipelines": [
+    {"from": "RES-01", "to": "PUMP-01", "diameter_mm": 600, "material": "Ductile Iron", "length_m": 850},
+    {"from": "RES-01", "to": "PUMP-02", "diameter_mm": 500, "material": "Mild Steel", "length_m": 1200},
+    {"from": "PUMP-01", "to": "NODE-101", "diameter_mm": 400, "material": "DI", "length_m": 600},
+    {"from": "NODE-101", "to": "NODE-102", "diameter_mm": 350, "material": "Cast Iron (Vintage 1988)", "length_m": 720},
+    {"from": "NODE-102", "to": "NODE-105", "diameter_mm": 350, "material": "DI", "length_m": 950},
+    {"from": "PUMP-02", "to": "NODE-103", "diameter_mm": 400, "material": "HDPE", "length_m": 800},
+    {"from": "NODE-103", "to": "NODE-104", "diameter_mm": 300, "material": "HDPE", "length_m": 650}
+  ]
+}

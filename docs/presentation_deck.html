@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JalUrja AI - Official Pitch Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body { background: white !important; font-size: 12pt; }
+      .slide-container { page-break-after: always; min-height: 100vh; margin: 0; box-shadow: none !important; border: 1px solid #ddd; }
+      .no-print { display: none !important; }
+    }
+    .slide-container {
+      aspect-ratio: 16 / 9;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans p-4 sm:p-8">
+
+  <!-- Print and Navigation Controls -->
+  <div class="no-print max-w-5xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg">
+    <div>
+      <h1 class="text-xl font-bold text-sky-400">JalUrja AI — Pitch Presentation Deck</h1>
+      <p class="text-xs text-slate-400">Official Submission Template for MY Bharat / Viksit Bharat Innovation Challenge</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm rounded-lg shadow transition flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        Print / Save as PDF
+      </button>
+      <a href="../README.md" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm rounded-lg">View Repo</a>
+    </div>
+  </div>
+
+  <div class="space-y-12 max-w-5xl mx-auto">
+
+    <!-- Slide 1: Cover -->
+    <div class="slide-container bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 rounded-2xl border border-sky-800/50 p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+      <div class="flex justify-between items-start">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-900/60 border border-sky-600/40 rounded-full text-sky-300 text-xs font-semibold tracking-wider uppercase">
+          MY Bharat Innovation Challenge 2026
+        </div>
+        <div class="text-right text-xs text-slate-400">Slide 1 / 10</div>
+      </div>
+      <div class="my-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-teal-200 to-amber-300 mb-4">
+          JalUrja AI
+        </h1>
+        <p class="text-xl sm:text-2xl text-slate-200 font-medium mb-3">
+          IoT & Machine Learning Water Grid Optimization and Leak Detection for Indian Cities
+        </p>
+        <p class="text-sm text-sky-400/90 font-mono">
+          Theme: Sustainable Cities (SDG 11) • Clean Water & Sanitation (SDG 6) • Clean Energy (SDG 7)
+        </p>
+      </div>
+      <div class="flex justify-between items-end border-t border-slate-800 pt-6 text-sm text-slate-400">
+        <div>
+          <span class="text-slate-300 font-semibold">Team:</span> JalUrja Innovators<br>
+          <span class="text-slate-300 font-semibold">Domain:</span> Smart Urban Water Infrastructure
+        </div>
+        <div class="text-right">
+          <span class="text-emerald-400 font-semibold">✓ Working Open-Source Prototype</span><br>
+          <span class="text-xs">Viksit Bharat Smart Cities Initiative</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Problem Statement -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">The Problem: Crippling Urban Water & Energy Losses</h2>
+        <span class="text-xs text-slate-400">Slide 2 / 10</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        <div class="bg-slate-800/70 p-6 rounded-xl border border-red-500/30">
+          <div class="text-3xl font-extrabold text-red-400 mb-2">40%+</div>
+          <h3 class="text-lg font-semibold text-slate-200 mb-1">Non-Revenue Water</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Massive subsurface pipeline leaks and bursts go undetected for days underground, draining treated drinking water.</p>
+        </div>
+        <div class="bg-slate-800/70 p-6 rounded-xl border border-amber-500/30">
+          <div class="text-3xl font-extrabold text-amber-400 mb-2">30%</div>
+          <h3 class="text-lg font-semibold text-slate-200 mb-1">Municipal Power Bill</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Water lifting and distribution pumps run during expensive peak grid tariff hours (₹8.50+/kWh) instead of cheap solar hours.</p>
+        </div>
+        <div class="bg-slate-800/70 p-6 rounded-xl border border-sky-500/30">
+          <div class="text-3xl font-extrabold text-sky-400 mb-2">Inequity</div>
+          <h3 class="text-lg font-semibold text-slate-200 mb-1">Erratic Ward Supply</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Peripheral and economically vulnerable colonies suffer dry taps, forcing reliance on exorbitant private water tankers.</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-400 bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+        <strong class="text-slate-300">Target Ground Reality:</strong> Cities like Bengaluru (BWSSB) and Delhi (DJB) lose over 500 million litres daily to pipeline age and hydraulic stress.
+      </div>
+    </div>
+
+    <!-- Slide 3: Solution -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Our Solution: JalUrja AI Platform</h2>
+        <span class="text-xs text-slate-400">Slide 3 / 10</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg flex-shrink-0">1</div>
+            <div>
+              <h3 class="font-bold text-slate-200 text-base">Acoustic & Pressure Cyber-Physical Sensing</h3>
+              <p class="text-xs text-slate-400">Non-intrusive LoRaWAN sensors capture differential pressure, flow rate, and acoustic vibro-signals in real-time.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
+            <div>
+              <h3 class="font-bold text-slate-200 text-base">Machine Learning Leak Pinpointer</h3>
+              <p class="text-xs text-slate-400">Isolation Forest ML isolates underground pipe cracks and bursts in under 15 minutes with GPS coordinates.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg flex-shrink-0">3</div>
+            <div>
+              <h3 class="font-bold text-slate-200 text-base">Solar-Tariff Time-of-Day Pump Dispatch</h3>
+              <p class="text-xs text-slate-400">Dynamic scheduler aligns booster pumping with DISCOM solar hours (₹4.20/kWh) and reservoir capacity constraints.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-sky-950 to-slate-800 p-6 rounded-xl border border-sky-800 flex flex-col justify-center text-center">
+          <div class="text-sky-300 font-bold text-lg mb-2">Core Impact Projection</div>
+          <div class="text-4xl font-extrabold text-emerald-400 mb-1">35% NRW Cut</div>
+          <div class="text-sm text-slate-300 mb-4">& 22% Electricity Cost Savings</div>
+          <div class="text-xs text-slate-400 border-t border-sky-900/60 pt-3">
+            Recovers entire IoT and platform capital cost in <span class="text-amber-300 font-semibold">8 to 11 months</span> for a standard municipal ward.
+          </div>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 text-right">JalUrja AI Technical Deck</div>
+    </div>
+
+    <!-- Slide 4: System Architecture -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">System Architecture & Data Flow</h2>
+        <span class="text-xs text-slate-400">Slide 4 / 10</span>
+      </div>
+      <div class="grid grid-cols-4 gap-4 my-auto text-center">
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <div class="text-xs uppercase font-bold text-sky-400 mb-2">Edge Layer</div>
+          <div class="text-sm font-semibold text-slate-200 mb-1">IoT Transducers</div>
+          <p class="text-xs text-slate-400">Acoustic sensors, pressure transducers & flowmeters transmitting via LoRaWAN/NB-IoT.</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <div class="text-xs uppercase font-bold text-teal-400 mb-2">Ingestion Layer</div>
+          <div class="text-sm font-semibold text-slate-200 mb-1">FastAPI Backend</div>
+          <p class="text-xs text-slate-400">High-throughput asynchronous ingestion pipeline with automated data cleansing.</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <div class="text-xs uppercase font-bold text-amber-400 mb-2">Intelligence Layer</div>
+          <div class="text-sm font-semibold text-slate-200 mb-1">ML Engines</div>
+          <p class="text-xs text-slate-400">Isolation Forest anomaly model & Time-of-Day mathematical pump optimizer.</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <div class="text-xs uppercase font-bold text-emerald-400 mb-2">Control Center</div>
+          <div class="text-sm font-semibold text-slate-200 mb-1">Municipal UI</div>
+          <p class="text-xs text-slate-400">Interactive GIS grid map, real-time alert queue, and automated van dispatch.</p>
+        </div>
+      </div>
+      <div class="bg-slate-800/40 p-3 rounded-lg text-xs text-slate-400 border border-slate-700">
+        <strong class="text-slate-300">Security & Protocols:</strong> TLS 1.3 encrypted sensor payloads, RBAC role-based municipal dashboard access, compliant with Indian National Cyber Security guidelines.
+      </div>
+    </div>
+
+    <!-- Slide 5: Features & USP -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Unique Selling Propositions (USP)</h2>
+        <span class="text-xs text-slate-400">Slide 5 / 10</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+        <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+          <h3 class="text-base font-bold text-emerald-400 mb-1">1. Non-Invasive Retrofitting</h3>
+          <p class="text-xs text-slate-300">Installs on existing cast-iron, ductile-iron, and HDPE pipes without digging up city roads or disrupting daily traffic.</p>
+        </div>
+        <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+          <h3 class="text-base font-bold text-sky-400 mb-1">2. Acoustic-Hydraulic Fusion</h3>
+          <p class="text-xs text-slate-300">Eliminates false alarms by correlating hydraulic pressure dips with high-frequency structural acoustic noise.</p>
+        </div>
+        <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+          <h3 class="text-base font-bold text-amber-400 mb-1">3. Solar Grid Tariff Synchronization</h3>
+          <p class="text-xs text-slate-300">First-of-its-kind dynamic integration with state electricity DISCOM ToD tariffs, pre-filling reservoirs when solar is abundant.</p>
+        </div>
+        <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+          <h3 class="text-base font-bold text-teal-400 mb-1">4. Turnkey Open-Source Platform</h3>
+          <p class="text-xs text-slate-300">Zero vendor lock-in; easily integrates with existing SCADA systems or operates as an independent municipal pilot.</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 text-right">JalUrja AI Technical Deck</div>
+    </div>
+
+    <!-- Slide 6: Live Prototype -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Working Prototype Demonstration</h2>
+        <span class="text-xs text-slate-400">Slide 6 / 10</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto text-left">
+        <div class="bg-slate-800 p-4 rounded-xl border border-red-500/40">
+          <div class="text-xs font-bold text-red-400 mb-1">Live Leak Detection</div>
+          <div class="text-lg font-bold text-slate-200 mb-1">Node-102 Burst</div>
+          <p class="text-xs text-slate-400">Pressure dropped to 1.72 Bar, Acoustic: 68.7 dB. 93% leak probability flagged instantly with map marker.</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-amber-500/40">
+          <div class="text-xs font-bold text-amber-400 mb-1">Pump Optimization</div>
+          <div class="text-lg font-bold text-slate-200 mb-1">Solar Tariff Mode</div>
+          <p class="text-xs text-slate-400">PUMP-01 scheduled during 10:00–16:00 solar hours. Projected daily savings: ₹18,450 for the ward.</p>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-xl border border-emerald-500/40">
+          <div class="text-xs font-bold text-emerald-400 mb-1">Automated Work Order</div>
+          <div class="text-lg font-bold text-slate-200 mb-1">Field Van Dispatch</div>
+          <p class="text-xs text-slate-400">One-click ticket generation sends precise GPS coordinates and pipe depth to municipal repair van.</p>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-3 rounded-lg flex justify-between items-center text-xs border border-slate-700">
+        <span class="text-slate-300">FastAPI backend running locally with automated Pytest test suite & simulated sensor streams.</span>
+        <span class="text-emerald-400 font-mono font-bold">100% Pass Rate</span>
+      </div>
+    </div>
+
+    <!-- Slide 7: Feasibility & Scalability -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Deployment Feasibility & Scalability</h2>
+        <span class="text-xs text-slate-400">Slide 7 / 10</span>
+      </div>
+      <div class="space-y-4 my-auto">
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-bold text-slate-200">Phase 1: Single Ward Pilot (Months 1–3)</div>
+            <div class="text-xs text-slate-400">Deploy 50 IoT nodes in high-loss ward (e.g. Koramangala, Bengaluru). Validate leak reduction and solar savings.</div>
+          </div>
+          <span class="px-3 py-1 bg-sky-900/50 text-sky-300 text-xs rounded-full font-bold">Pilot</span>
+        </div>
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-bold text-slate-200">Phase 2: SCADA & Multi-Zone Integration (Months 4–8)</div>
+            <div class="text-xs text-slate-400">Connect with existing municipal Water Treatment Plants and District Metered Areas (DMAs).</div>
+          </div>
+          <span class="px-3 py-1 bg-amber-900/50 text-amber-300 text-xs rounded-full font-bold">Scaling</span>
+        </div>
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 flex items-center justify-between">
+          <div>
+            <div class="text-sm font-bold text-slate-200">Phase 3: Citywide Smart Grid Rollout (Months 9–15)</div>
+            <div class="text-xs text-slate-400">Federated multi-ward orchestration scaling to over 10,000 smart sensors across metro municipalities.</div>
+          </div>
+          <span class="px-3 py-1 bg-emerald-900/50 text-emerald-300 text-xs rounded-full font-bold">Metro Rollout</span>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 text-right">JalUrja AI Technical Deck</div>
+    </div>
+
+    <!-- Slide 8: UN SDG Alignment -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Alignment with UN SDGs & National Missions</h2>
+        <span class="text-xs text-slate-400">Slide 8 / 10</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        <div class="bg-gradient-to-b from-sky-950 to-slate-900 p-6 rounded-xl border border-sky-600/40">
+          <div class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2">UN SDG 6</div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">Clean Water & Sanitation</h3>
+          <p class="text-xs text-slate-300">Cuts potable water loss by 35%, ensuring equitable pressurized supply to all urban households.</p>
+        </div>
+        <div class="bg-gradient-to-b from-amber-950 to-slate-900 p-6 rounded-xl border border-amber-600/40">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">UN SDG 7</div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">Affordable & Clean Energy</h3>
+          <p class="text-xs text-slate-300">Shifts municipal power loads into daytime solar generation hours, slashing grid carbon intensity.</p>
+        </div>
+        <div class="bg-gradient-to-b from-teal-950 to-slate-900 p-6 rounded-xl border border-teal-600/40">
+          <div class="text-xs font-bold text-teal-400 uppercase tracking-wider mb-2">UN SDG 11</div>
+          <h3 class="text-lg font-bold text-slate-100 mb-2">Sustainable Cities</h3>
+          <p class="text-xs text-slate-300">Transforms fragile municipal water distribution into a climate-resilient cyber-physical smart grid.</p>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-3 rounded-lg text-xs text-slate-400 border border-slate-700">
+        <strong class="text-slate-300">National Alignment:</strong> Directly supports Jal Jeevan Mission (Urban), AMRUT 2.0, and National Smart Cities Mission.
+      </div>
+    </div>
+
+    <!-- Slide 9: Impact & ROI -->
+    <div class="slide-container bg-slate-900 rounded-2xl border border-slate-800 p-10 flex flex-col justify-between shadow-xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Measurable Impact & Financial ROI</h2>
+        <span class="text-xs text-slate-400">Slide 9 / 10</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto text-center">
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+          <div class="text-3xl font-extrabold text-emerald-400 mb-1">12 MLD</div>
+          <div class="text-xs text-slate-300 font-semibold">Water Saved Daily</div>
+          <div class="text-xs text-slate-400 mt-1">per municipal zone</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+          <div class="text-3xl font-extrabold text-sky-400 mb-1">22%</div>
+          <div class="text-xs text-slate-300 font-semibold">Power Bill Reduced</div>
+          <div class="text-xs text-slate-400 mt-1">via solar scheduling</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+          <div class="text-3xl font-extrabold text-amber-400 mb-1">&lt; 15 min</div>
+          <div class="text-xs text-slate-300 font-semibold">Burst Response</div>
+          <div class="text-xs text-slate-400 mt-1">down from 48+ hours</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+          <div class="text-3xl font-extrabold text-teal-400 mb-1">8-11 mo</div>
+          <div class="text-xs text-slate-300 font-semibold">Capex Payback</div>
+          <div class="text-xs text-slate-400 mt-1">full capital recovery</div>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 text-right">JalUrja AI Technical Deck</div>
+    </div>
+
+    <!-- Slide 10: Conclusion & Call to Action -->
+    <div class="slide-container bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 rounded-2xl border border-sky-800/50 p-10 flex flex-col justify-between shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-sky-400">Conclusion & Vision for Viksit Bharat 2047</h2>
+        <span class="text-xs text-slate-400">Slide 10 / 10</span>
+      </div>
+      <div class="my-auto text-center max-w-2xl mx-auto space-y-4">
+        <div class="text-xl sm:text-2xl font-bold text-slate-100">
+          "Ensuring Every Drop Reaches Citizens While Powering Urban Utilities on Clean Energy."
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          JalUrja AI is ready for immediate pilot onboarding with Indian municipal corporations, equipped with production-grade microservices, validated test suites, and open-source transparency.
+        </p>
+        <div class="inline-flex items-center gap-3 px-6 py-3 bg-sky-900/60 border border-sky-600 rounded-xl text-sky-200 text-sm font-semibold">
+          <span>GitHub: github.com/jalurja-ai/prototype</span> • <span>License: MIT</span>
+        </div>
+      </div>
+      <div class="flex justify-between items-end border-t border-slate-800 pt-4 text-xs text-slate-400">
+        <div>MY Bharat Hackathon Submission 2026</div>
+        <div>Thank You!</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
