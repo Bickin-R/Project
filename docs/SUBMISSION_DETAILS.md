@@ -56,7 +56,7 @@ JalUrja AI is a full-stack digital twin & IoT platform for urban water-energy gr
 
 ### Field 6: Working Prototype (Code Repository)
 **Requirement:** Provide GitHub/GitLab link with open-source code, README, architecture docs, sample data, test cases, and license.  
-- **Repository URL:** `https://github.com/<your-username>/jalurja-ai` (replace with your published repository)
+- **Repository URL:** `https://github.com/Bickin-R/Project` (or `https://github.com/Bickin-R/Project.git`)
 - **Checklist Verified:**
   - [x] README with setup steps & environment variables
   - [x] Technical Design Document (`docs/ARCHITECTURE.md`)

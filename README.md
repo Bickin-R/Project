@@ -74,8 +74,8 @@ e:\My Bharath\
 Clone the repository and set up a virtual environment:
 ```bash
 # Clone repository
-git clone https://github.com/<your-username>/jalurja-ai.git
-cd jalurja-ai
+git clone https://github.com/Bickin-R/Project.git
+cd Project
 
 # Create and activate virtual environment
 # On Windows:
